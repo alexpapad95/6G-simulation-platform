@@ -13,7 +13,7 @@ The user is able to re-adjust:
                
    - The dimensions of S-SRRs.
    
-   - The properties (electric permittivity, εr, and tangent loss,tanδ) and the dimensions of substrate (width, length and thickness).
+   - The properties (electric permittivity, εr, and tangent loss,tand) and the dimensions of substrate (width, length and thickness).
    
    - The distance between the pair of unit cells. By default, the distance is 10 mm.
 
