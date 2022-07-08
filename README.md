@@ -1,4 +1,4 @@
-#  Open_Platform_for_Simulating_the_Physical_Layer_of_6G_Communication_Systems_with_Multiple_Intelligent_Surfaces
+#  Simulation Platform
 This simulation platform is presented in "An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces". In this paper, we develop an open simulation platform, aimed at modeling the physical-layer electromagnetic coupling and propagation between RIS pairs. We present the platform by initially designing a basic unit cell, and then proceeding to progressively model and simulate multiple and larger RISs. The platform can be used for producing verifiable stochastic models for wireless communication in multi- RIS deployments, and its code is freely available to the public.
 
 # Description
