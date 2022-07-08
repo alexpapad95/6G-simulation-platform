@@ -57,7 +57,7 @@ The steps are the following:
 
    - Open the unit_cell_definition.m file and design the unit cell in the selected resonating frequency.
 
-   - Pass in the RIS_pairs_simulation the dimensions of the unit cell. In the beginning, work on the 3x3 format in order the dimensions of patches to be resulted.
+   - Pass in the RIS_pairs_simulation the dimensions of the unit cell. In the beginning, work on the 3x3 format in order the dimensions of load patches to be resulted.
 
    - Upgrade the dimension of RISs keeping all the other variables constant.
 
