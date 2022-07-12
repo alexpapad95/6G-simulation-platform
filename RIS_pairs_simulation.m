@@ -77,7 +77,7 @@ feed.R = 50; % feed resistance
 
 %% prepare simulation folder
 Sim_Path = 'tmp';
-Sim_CSX = 'patch_ant.xml';
+Sim_CSX = 'ris_pairs_simulation.xml';
 if (postprocessing_only==0)
     [status, message, messageid] = rmdir( Sim_Path, 's' ); % clear previous directory
     [status, message, messageid] = mkdir( Sim_Path ); % create empty simulation folder
@@ -368,8 +368,8 @@ end
 [CSX, nf2ff] = CreateNF2FFBox(CSX,'nf2ff',start,stop);
 
 %% prepare and run simulation folder
-Sim_Path = 'tmp_ris_pairs';
-Sim_CSX = 'ris_pairs.xml';
+Sim_Path = 'tmp_ris_pairs_simulation';
+Sim_CSX = 'ris_pairs_simulation.xml';
 
 [status, message, messageid] = rmdir( Sim_Path, 's' ); % clear previous directory
 [status, message, messageid] = mkdir( Sim_Path ); % create empty simulation folder
