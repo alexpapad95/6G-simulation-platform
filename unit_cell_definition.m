@@ -69,7 +69,7 @@ ssrr2_z=0;
 
 %% prepare simulation folder
 Sim_Path = 'tmp';
-Sim_CSX = 'patch_ant.xml';
+Sim_CSX = 'unit_cell_definition.xml';
 if (postprocessing_only==0)
     [status, message, messageid] = rmdir( Sim_Path, 's' ); % clear previous directory
     [status, message, messageid] = mkdir( Sim_Path ); % create empty simulation folder
@@ -259,8 +259,8 @@ CSX = AddDump(CSX,'Ef','DumpType',10,'Frequency',(5e9));
 CSX = AddBox(CSX,'Ef',10,[-substrate_srr.width -substrate_srr.length -10*substrate_srr.thickness],[substrate_srr.width substrate_srr.length 10*substrate_srr.thickness]); %assign box
 
 %% prepare and run simulation folder
-Sim_Path = 'tmp_ssrr';
-Sim_CSX = 'ssrr.xml';
+Sim_Path = 'tmp_unit_cell_definition';
+Sim_CSX = 'unit_cell_definition.xml';
 
 [status, message, messageid] = rmdir( Sim_Path, 's' ); % clear previous directory
 [status, message, messageid] = mkdir( Sim_Path ); % create empty simulation folder
