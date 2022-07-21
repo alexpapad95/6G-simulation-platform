@@ -5,7 +5,7 @@ clc
 %% switches & options...
 postprocessing_only = 0;
 use_pml = 0;         % use pml boundaries instead of mur
-cal=0; %% if it is zero, no calculation is done.Only the structure is presented
+cal=1; %% if it is zero, no calculation is done.Only the structure is presented
 
 %% setup the simulation
 physical_constants;
@@ -46,7 +46,7 @@ max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /40;
 coarseResolution = c0/(f0 + fc) / unit / 20;
 CSX = InitCSX();
 
-%%  the dimensions of fine tuning procedure
+%%%%%%%%%%  the dimensions of fine tuning procedure  %%%%
 L1=10.9; %length of the outer ring
 L2=10.36; %width of the outer ring
 G1=1.05; % width of the outer gap
@@ -55,7 +55,7 @@ width_iner=width_outer;
 G3=1.05; %distance between iner and outer
 G2=G1; % width of inner gap
 srr_thickness=0.15;
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% parameters for load patches
 width_patch=1.2;
@@ -63,7 +63,7 @@ patch_thickness=srr_thickness;
 dx=10;% x-axis distance between elements
 dz=10; % z-axis distance between elements
 
-%% substrate setup
+%substrate setup
 distance_x=L2+dx;
 distance_z=L1+dz;
 substrate_srr.width = dim_meta*distance_x;
@@ -108,8 +108,6 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
     for j=-((dim_meta-1)/2):((dim_meta-1)/2)
         number_of_elements=number_of_elements+1;
         z=j*distance_z;
-        
-        %% outer ring
         start = [L2/2+RIS1_x+x, RIS1_y+srr_thickness/2,-L1/2+RIS1_z+width_outer+z];
         stop = [L2/2-width_outer+RIS1_x+x, RIS1_y-srr_thickness/2,L1/2+RIS1_z-width_outer+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
@@ -143,7 +141,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
         stop = [L2/2-width_iner-G3-width_iner+RIS1_x+x, RIS1_y-srr_thickness/2,L1/2-width_iner-G3+RIS1_z+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
         
-        % create patches
+        %% load patches
         if i~=(dim_meta-1)/2
             start = [L2/2+RIS1_x+i*(dx+L2), RIS1_y+patch_thickness/2, L1/4+RIS1_z+z];
             stop = [ L2/2+RIS1_x+dx+i*(dx+L2), RIS1_y-srr_thickness/2,L1/4-width_patch+RIS1_z+z];
@@ -166,6 +164,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
             
         end
         
+         %% lumped ports
         for k=number_of_elements
             start = [-G1/2+RIS1_x+x, RIS1_y, -L1/2+RIS1_z+z];
             stop  = [G1/2+RIS1_x+x, substrate_srr.thickness+RIS1_y, -L1/2+width_outer+RIS1_z+z];
@@ -232,6 +231,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
         stop = [L2/2-width_iner-G3-width_iner+RIS2_x+x, RIS2_y-srr_thickness/2+substrate_srr.thickness,L1/2-width_iner-G3+RIS2_z+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
         
+        %% load patches
         if i~=(dim_meta-1)/2
             start = [L2/2+RIS2_x+i*(dx+L2), RIS2_y+patch_thickness/2+substrate_srr.thickness, L1/4+RIS2_z+z];
             stop = [ L2/2+RIS2_x+dx+i*(dx+L2), RIS2_y-srr_thickness/2+substrate_srr.thickness,L1/4-width_patch+RIS2_z+z];
@@ -240,6 +240,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
             start = [L2/2+RIS2_x+i*(dx+L2), RIS2_y+patch_thickness/2+substrate_srr.thickness, -L1/4+RIS2_z+z];
             stop = [ L2/2+RIS2_x+dx+i*(dx+L2), RIS2_y-srr_thickness/2+substrate_srr.thickness,-L1/4+width_patch+RIS2_z+z];
             CSX = AddBox(CSX,'patch',4,start,stop);
+            
         end
         
         if j~=(dim_meta-1)/2
@@ -250,18 +251,20 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
             start = [-L2/4+RIS2_x+x, RIS2_y+patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+j*(L1+dz)];
             stop = [-L2/4-width_patch+RIS2_x+x, RIS2_y-patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+dz+j*(L1+dz)];
             CSX = AddBox(CSX,'patch',4,start,stop);
-            
-            for k=number_of_elements_2
-                start = [-G1/2+RIS2_x+x, RIS2_y, -L1/2+RIS2_z+z];
-                stop  = [G1/2+RIS2_x+x, RIS2_y+substrate_srr.thickness, -L1/2+width_outer+RIS2_z+z];
-                [CSX, port{k+number_of_elements}] = AddLumpedPort(CSX, 5 ,k+number_of_elements ,feed.R, start, stop, [0 1 0], false);
-                
-            end
+        end
+        
+        %% lumped ports
+        for k=number_of_elements_2
+            start = [-G1/2+RIS2_x+x, RIS2_y, -L1/2+RIS2_z+z];
+            stop  = [G1/2+RIS2_x+x, RIS2_y+substrate_srr.thickness, -L1/2+width_outer+RIS2_z+z];
+            [CSX, port{k+number_of_elements}] = AddLumpedPort(CSX, 5 ,k+number_of_elements ,feed.R, start, stop, [0 1 0], false);
             
         end
         
     end
+    
 end
+
 
 % setup a mesh
 mesh.x = [];
