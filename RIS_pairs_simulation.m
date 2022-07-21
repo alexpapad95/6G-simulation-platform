@@ -5,14 +5,14 @@ clc
 %% switches & options...
 postprocessing_only = 0;
 use_pml = 0;         % use pml boundaries instead of mur
-cal=1; %% if it is zero, no calculation is done.Only the structure is presented
+cal=0; %% if it is zero, no calculation is done.Only the structure is presented
 
 %% setup the simulation
 physical_constants;
 unit = 1e-3; % all length in mm
 
 %% configuration of RISs %%%%
-dim_meta=5; %%% dimension of metasurface-elements per column and row. ONLY ODD NUMBERS!!!
+dim_meta=3; %%% dimension of metasurface-elements per column and row. ONLY ODD NUMBERS!!!
 
 RIS1_x=0; %%RIS1 position%%
 RIS1_y=5;
@@ -46,7 +46,7 @@ max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /40;
 coarseResolution = c0/(f0 + fc) / unit / 20;
 CSX = InitCSX();
 
-%%%%%%%%%%  the dimensions of fine tuning procedure  %%%%
+%%  the dimensions of fine tuning procedure
 L1=10.9; %length of the outer ring
 L2=10.36; %width of the outer ring
 G1=1.05; % width of the outer gap
@@ -55,7 +55,7 @@ width_iner=width_outer;
 G3=1.05; %distance between iner and outer
 G2=G1; % width of inner gap
 srr_thickness=0.15;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %% parameters for load patches
 width_patch=1.2;
@@ -63,7 +63,7 @@ patch_thickness=srr_thickness;
 dx=10;% x-axis distance between elements
 dz=10; % z-axis distance between elements
 
-%substrate setup
+%% substrate setup
 distance_x=L2+dx;
 distance_z=L1+dz;
 substrate_srr.width = dim_meta*distance_x;
@@ -77,7 +77,7 @@ feed.R = 50; % feed resistance
 
 %% prepare simulation folder
 Sim_Path = 'tmp';
-Sim_CSX = 'ris_pairs_simulation.xml';
+Sim_CSX = 'patch_ant.xml';
 if (postprocessing_only==0)
     [status, message, messageid] = rmdir( Sim_Path, 's' ); % clear previous directory
     [status, message, messageid] = mkdir( Sim_Path ); % create empty simulation folder
@@ -91,7 +91,7 @@ CSX = AddMetal(CSX,'groundplane'); %create groundplane
 CSX = AddMetal( CSX, 'patch');%create patches
 CSX = AddMetal( CSX, 'SRR'); %create S-SRRs
 
-%%% First RIS%%%
+%% First RIS
 %% create substrate
 start = [-substrate_srr.length/2+RIS1_x, RIS1_y,-substrate_srr.width/2+RIS1_z];
 stop = [ substrate_srr.length/2+RIS1_x, substrate_srr.thickness+RIS1_y,substrate_srr.width/2+RIS1_z];
@@ -100,7 +100,7 @@ CSX = AddBox(CSX,'substrate_srr',1,start,stop);
 start = [ -substrate_srr.length/2+RIS1_x, RIS1_y+substrate_srr.thickness,-substrate_srr.width/2+RIS1_z];
 stop = [substrate_srr.length/2+RIS1_x, RIS1_y+substrate_srr.thickness, substrate_srr.width/2+RIS1_z];
 CSX = AddBox(CSX,'groundplane',2,start,stop);
-%%% create unit cells-S-SRRs
+%create unit cells-S-SRRs
 number_of_elements=0;
 
 for i=-((dim_meta-1)/2):((dim_meta-1)/2)
@@ -108,6 +108,8 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
     for j=-((dim_meta-1)/2):((dim_meta-1)/2)
         number_of_elements=number_of_elements+1;
         z=j*distance_z;
+        
+        %% outer ring
         start = [L2/2+RIS1_x+x, RIS1_y+srr_thickness/2,-L1/2+RIS1_z+width_outer+z];
         stop = [L2/2-width_outer+RIS1_x+x, RIS1_y-srr_thickness/2,L1/2+RIS1_z-width_outer+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
@@ -124,7 +126,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
         stop = [-L2/2+width_outer+RIS1_x+x, RIS1_y-srr_thickness/2,L1/2+RIS1_z-width_outer+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
         
-        %%iner ring
+        %% iner ring
         start = [ L2/2-width_iner-G3-width_iner+RIS1_x+x, RIS1_y+srr_thickness/2, -L1/2+width_iner+G3+RIS1_z+z];
         stop = [-L2/2+width_iner+G3+width_iner+RIS1_x+x, RIS1_y-srr_thickness/2,-L1/2+width_iner+G3+width_iner+RIS1_z+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
@@ -141,57 +143,41 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
         stop = [L2/2-width_iner-G3-width_iner+RIS1_x+x, RIS1_y-srr_thickness/2,L1/2-width_iner-G3+RIS1_z+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
         
-        %% create patches %%%
-        if (i==0)
-            for ptc=0:(dim_meta-3)/2
-                start = [L2/2+RIS1_x+ptc*(dx+L2), RIS1_y+patch_thickness/2, L1/4+RIS1_z+z];
-                stop = [ L2/2+RIS1_x+dx+ptc*(dx+L2), RIS1_y-srr_thickness/2,L1/4-width_patch+RIS1_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [L2/2+RIS1_x+ptc*(dx+L2), RIS1_y+patch_thickness/2, -L1/4+RIS1_z+z];
-                stop = [ L2/2+RIS1_x+dx+ptc*(dx+L2), RIS1_y-srr_thickness/2,-L1/4+width_patch+RIS1_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [-L2/2+RIS1_x-ptc*(L2+dx), RIS1_y+patch_thickness/2, L1/4+RIS1_z+z];
-                stop = [ -L2/2+RIS1_x-dx-ptc*(L2+dx), RIS1_y-srr_thickness/2,L1/4-width_patch+RIS1_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [-L2/2+RIS1_x-ptc*(L2+dx), RIS1_y+patch_thickness/2, -L1/4+RIS1_z+z];
-                stop = [ -L2/2+RIS1_x-dx-ptc*(L2+dx), RIS1_y-srr_thickness/2,-L1/4+width_patch+RIS1_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-            end
+        % create patches
+        if i~=(dim_meta-1)/2
+            start = [L2/2+RIS1_x+i*(dx+L2), RIS1_y+patch_thickness/2, L1/4+RIS1_z+z];
+            stop = [ L2/2+RIS1_x+dx+i*(dx+L2), RIS1_y-srr_thickness/2,L1/4-width_patch+RIS1_z+z];
+            CSX = AddBox(CSX,'patch',4,start,stop);
+            
+            start = [L2/2+RIS1_x+i*(dx+L2), RIS1_y+patch_thickness/2, -L1/4+RIS1_z+z];
+            stop = [ L2/2+RIS1_x+dx+i*(dx+L2), RIS1_y-patch_thickness/2,-L1/4+width_patch+RIS1_z+z];
+            CSX = AddBox(CSX,'patch',4,start,stop);
+            
         end
-        %
-        if(j==0)
-            for ptc=0:(dim_meta-3)/2
-                start = [L2/4+RIS1_x+x, RIS1_y+patch_thickness/2,L1/2+RIS1_z+ptc*(L1+dz)];
-                stop = [L2/4+width_patch+RIS1_x+x, RIS1_y-patch_thickness/2,L1/2+RIS1_z+dz+ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [-L2/4+RIS1_x+x, RIS1_y+patch_thickness/2,L1/2+RIS1_z+ptc*(L1+dz)];
-                stop = [-L2/4-width_patch+RIS1_x+x, RIS1_y-patch_thickness/2,L1/2+RIS1_z+dz+ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [L2/4+RIS1_x+x, RIS1_y+patch_thickness/2,-L1/2+RIS1_z-ptc*(L1+dz)];
-                stop = [L2/4+width_patch+RIS1_x+x, RIS1_y-patch_thickness/2,-L1/2+RIS1_z-dz-ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [-L2/4+RIS1_x+x, RIS1_y+patch_thickness/2,-L1/2+RIS1_z-ptc*(L1+dz)];
-                stop = [-L2/4-width_patch+RIS1_x+x, RIS1_y-patch_thickness/2,-L1/2+RIS1_z-dz-ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-            end
+        
+        if j~=(dim_meta-1)/2
+            start = [L2/4+RIS1_x+x, RIS1_y+patch_thickness/2,L1/2+RIS1_z+j*(L1+dz)];
+            stop = [L2/4+width_patch+RIS1_x+x, RIS1_y-patch_thickness/2,L1/2+RIS1_z+dz+j*(L1+dz)];
+            CSX = AddBox(CSX,'patch',4,start,stop);
+            
+            start = [-L2/4+RIS1_x+x, RIS1_y+patch_thickness/2,L1/2+RIS1_z+j*(L1+dz)];
+            stop = [-L2/4-width_patch+RIS1_x+x, RIS1_y-patch_thickness/2,L1/2+RIS1_z+dz+j*(L1+dz)];
+            CSX = AddBox(CSX,'patch',4,start,stop);
+            
         end
         
         for k=number_of_elements
             start = [-G1/2+RIS1_x+x, RIS1_y, -L1/2+RIS1_z+z];
             stop  = [G1/2+RIS1_x+x, substrate_srr.thickness+RIS1_y, -L1/2+width_outer+RIS1_z+z];
             [CSX, port{k}] = AddLumpedPort(CSX, 1 ,k ,feed.R, start, stop, [0 1 0], true);
+            
         end
     end
     
 end
 
-%%% Second Metasurface
+
+%% Second Metasurface
 %% create substrate
 start = [-substrate_srr.length/2+RIS2_x, RIS2_y,-substrate_srr.width/2+RIS2_z];
 stop = [ substrate_srr.length/2+RIS2_x, substrate_srr.thickness+RIS2_y,substrate_srr.width/2+RIS2_z];
@@ -229,7 +215,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
         CSX = AddBox(CSX,'SRR',10,start,stop);
         
         
-        %%iner ring
+        %% iner ring
         start = [ L2/2-width_iner-G3-width_iner+RIS2_x+x, RIS2_y+srr_thickness/2+substrate_srr.thickness, -L1/2+width_iner+G3+RIS2_z+z];
         stop = [-L2/2+width_iner+G3+width_iner+RIS2_x+x, RIS2_y-srr_thickness/2+substrate_srr.thickness,-L1/2+width_iner+G3+width_iner+RIS2_z+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
@@ -246,58 +232,36 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
         stop = [L2/2-width_iner-G3-width_iner+RIS2_x+x, RIS2_y-srr_thickness/2+substrate_srr.thickness,L1/2-width_iner-G3+RIS2_z+z];
         CSX = AddBox(CSX,'SRR',10,start,stop);
         
-        
-        if (i==0)
-            for ptc=0:(dim_meta-3)/2
-                start = [L2/2+RIS2_x+ptc*(dx+L2), RIS2_y+patch_thickness/2+substrate_srr.thickness, L1/4+RIS2_z+z];
-                stop = [ L2/2+RIS2_x+dx+ptc*(dx+L2), RIS2_y-srr_thickness/2+substrate_srr.thickness,L1/4-width_patch+RIS2_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [L2/2+RIS2_x+ptc*(dx+L2), RIS2_y+patch_thickness/2+substrate_srr.thickness, -L1/4+RIS2_z+z];
-                stop = [ L2/2+RIS2_x+dx+ptc*(dx+L2), RIS2_y-srr_thickness/2+substrate_srr.thickness,-L1/4+width_patch+RIS2_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [-L2/2+RIS2_x-ptc*(L2+dx), RIS2_y+patch_thickness/2+substrate_srr.thickness, L1/4+RIS2_z+z];
-                stop = [ -L2/2+RIS2_x-dx-ptc*(L2+dx), RIS2_y-srr_thickness/2+substrate_srr.thickness,L1/4-width_patch+RIS2_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [-L2/2+RIS2_x-ptc*(L2+dx), RIS2_y+patch_thickness/2+substrate_srr.thickness, -L1/4+RIS2_z+z];
-                stop = [ -L2/2+RIS2_x-dx-ptc*(L2+dx), RIS2_y-srr_thickness/2+substrate_srr.thickness,-L1/4+width_patch+RIS2_z+z];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-            end
+        if i~=(dim_meta-1)/2
+            start = [L2/2+RIS2_x+i*(dx+L2), RIS2_y+patch_thickness/2+substrate_srr.thickness, L1/4+RIS2_z+z];
+            stop = [ L2/2+RIS2_x+dx+i*(dx+L2), RIS2_y-srr_thickness/2+substrate_srr.thickness,L1/4-width_patch+RIS2_z+z];
+            CSX = AddBox(CSX,'patch',4,start,stop);
+            
+            start = [L2/2+RIS2_x+i*(dx+L2), RIS2_y+patch_thickness/2+substrate_srr.thickness, -L1/4+RIS2_z+z];
+            stop = [ L2/2+RIS2_x+dx+i*(dx+L2), RIS2_y-srr_thickness/2+substrate_srr.thickness,-L1/4+width_patch+RIS2_z+z];
+            CSX = AddBox(CSX,'patch',4,start,stop);
         end
         
-        if(j==0)
-            for ptc=0:(dim_meta-3)/2
-                start = [L2/4+RIS2_x+x, RIS2_y+patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+ptc*(L1+dz)];
-                stop = [L2/4+width_patch+RIS2_x+x, RIS2_y-patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+dz+ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
+        if j~=(dim_meta-1)/2
+            start = [L2/4+RIS2_x+x, RIS2_y+patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+j*(L1+dz)];
+            stop = [L2/4+width_patch+RIS2_x+x, RIS2_y-patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+dz+j*(L1+dz)];
+            CSX = AddBox(CSX,'patch',4,start,stop);
+            
+            start = [-L2/4+RIS2_x+x, RIS2_y+patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+j*(L1+dz)];
+            stop = [-L2/4-width_patch+RIS2_x+x, RIS2_y-patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+dz+j*(L1+dz)];
+            CSX = AddBox(CSX,'patch',4,start,stop);
+            
+            for k=number_of_elements_2
+                start = [-G1/2+RIS2_x+x, RIS2_y, -L1/2+RIS2_z+z];
+                stop  = [G1/2+RIS2_x+x, RIS2_y+substrate_srr.thickness, -L1/2+width_outer+RIS2_z+z];
+                [CSX, port{k+number_of_elements}] = AddLumpedPort(CSX, 5 ,k+number_of_elements ,feed.R, start, stop, [0 1 0], false);
                 
-                start = [-L2/4-width_patch+RIS2_x+x, RIS2_y+patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+ptc*(L1+dz)];
-                stop = [-L2/4+RIS2_x+x, RIS2_y-patch_thickness/2+substrate_srr.thickness,L1/2+RIS2_z+dz+ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [L2/4+RIS2_x+x, RIS2_y+patch_thickness/2+substrate_srr.thickness,-L1/2+RIS2_z-ptc*(L1+dz)];
-                stop = [L2/4+width_patch+RIS2_x+x, RIS2_y-patch_thickness/2+substrate_srr.thickness,-L1/2+RIS2_z-dz-ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
-                
-                start = [-L2/4+RIS2_x+x, RIS2_y+patch_thickness/2+substrate_srr.thickness,-L1/2+RIS2_z-ptc*(L1+dz)];
-                stop = [-L2/4-width_patch+RIS2_x+x, RIS2_y-patch_thickness/2+substrate_srr.thickness,-L1/2+RIS2_z-dz-ptc*(L1+dz)];
-                CSX = AddBox(CSX,'patch',4,start,stop);
             end
-        end
-        
-        for k=number_of_elements_2
-            start = [-G1/2+RIS2_x+x, RIS2_y, -L1/2+RIS2_z+z];
-            stop  = [G1/2+RIS2_x+x, RIS2_y+substrate_srr.thickness, -L1/2+width_outer+RIS2_z+z];
-            [CSX, port{k+number_of_elements}] = AddLumpedPort(CSX, 5 ,k+number_of_elements ,feed.R, start, stop, [0 1 0], false);
             
         end
         
     end
-    
 end
-
 
 % setup a mesh
 mesh.x = [];
@@ -368,8 +332,8 @@ end
 [CSX, nf2ff] = CreateNF2FFBox(CSX,'nf2ff',start,stop);
 
 %% prepare and run simulation folder
-Sim_Path = 'tmp_ris_pairs_simulation';
-Sim_CSX = 'ris_pairs_simulation.xml';
+Sim_Path = 'tmp_ris_pairs';
+Sim_CSX = 'ris_pairs.xml';
 
 [status, message, messageid] = rmdir( Sim_Path, 's' ); % clear previous directory
 [status, message, messageid] = mkdir( Sim_Path ); % create empty simulation folder
