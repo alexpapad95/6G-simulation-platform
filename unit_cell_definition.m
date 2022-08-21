@@ -5,7 +5,7 @@ clc
 %% switches & options...
 postprocessing_only = 0;
 use_pml = 0;         % use pml boundaries instead of mur
-cal=1;
+cal=1; % if cal=0 only the structure is depicted. 
 active=1; % declares what S-SRR is active and what passive
 
 %% setup the simulation
@@ -30,7 +30,7 @@ FDTD = SetBoundaryCond( FDTD, BC );
 substrate.epsR = 2.2;
 
 % set the resolution for the finer structures, e.g. the S-SRR's gap
-max_res = c0 / (f0 + fc) / sqrt(substrate.epsR) / unit /40;% cell size: lambda/40
+max_res = c0 / (f0 + fc) / sqrt(substrate.epsR) / unit /40; % cell size: lambda/40
 % set the resolution for the coarser structures, e.g. the surrounding air
 coarseResolution = c0/(f0 + fc) / unit / 20; % cell size: lambda/20
 
@@ -284,10 +284,10 @@ if (cal==1)
     
     Pincoming_1=port{1}.P_inc;
     Preflected_1=port{1}.P_ref;
-    Paccepted_1=port{1}.P_acc;   %%%incoming minus reflected, may be negative for passive ports
+    Paccepted_1=port{1}.P_acc;  %incoming minus reflected, may be negative for passive ports
     Pincoming_2=port{2}.P_inc;
     Preflected_2=port{2}.P_ref;
-    Paccepted_2=port{2}.P_acc;   %%%incoming minus reflected, may be negative for passive ports
+    Paccepted_2=port{2}.P_acc;  %incoming minus reflected, may be negative for passive ports
     
     Zin1 = port{1}.uf.tot ./ port{1}.if.tot;
     Zin2 = port{2}.uf.tot ./ port{2}.if.tot;
