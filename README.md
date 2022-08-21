@@ -34,8 +34,6 @@ The first action in the RIS_pairs_simulation.m is the definition of the S-SRRs d
 The simulation platform can support only odd values for the dimension of the RIS (dim_meta). For values lower than 15, the meshing structure is adopted automatically. We utilize the function tooclose in all the axis, reducing the simulation run-time. For greater dimensions, the meshing structure must be adjusted. One way is the reduction of both max_res and coarseResolution from lamda/40 and lamda/20 to lamda/20 and lamda/10, correspondingly.
 Another apporach is the adjustment of the "tooclose" function, increasing the respective criterion in "find".  
 
-The exported data are the following:
-
 The simulation is calculated the following outputs:
 
 - The feed point impedance of the active ports.
@@ -51,7 +49,7 @@ The user must install : MATLAB/Octave & openEMS (https://openems.de/start/)
 
 The steps are the following:
 
-   - Open the MATLAB/Octave environent
+   - Open the MATLAB/Octave environment
 
    - Open openEMS via the addpath command (it is described in the tutorial)
 
