@@ -164,7 +164,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
             
         end
         
-         %% lumped ports
+         %% lumped ports. All the ports of RIS #1 are active
         for k=number_of_elements
             start = [-G1/2+RIS1_x+x, RIS1_y, -L1/2+RIS1_z+z];
             stop  = [G1/2+RIS1_x+x, substrate_srr.thickness+RIS1_y, -L1/2+width_outer+RIS1_z+z];
@@ -253,7 +253,7 @@ for i=-((dim_meta-1)/2):((dim_meta-1)/2)
             CSX = AddBox(CSX,'patch',4,start,stop);
         end
         
-        %% lumped ports
+        %% lumped ports. All the ports of RIS #2 are passive.
         for k=number_of_elements_2
             start = [-G1/2+RIS2_x+x, RIS2_y, -L1/2+RIS2_z+z];
             stop  = [G1/2+RIS2_x+x, RIS2_y+substrate_srr.thickness, -L1/2+width_outer+RIS2_z+z];
@@ -362,7 +362,7 @@ if (cal==1)
         P_in{i} = real(0.5 * port{i}.uf.tot .* conj( port{i}.if.tot ));
         Pincoming{i}=port{i}.P_inc;
         Preflected{i}=port{i}.P_ref;
-        Paccepted{i}=port{i}.P_acc;   %%%incoming minus reflected, may be negative for passive port
+        Paccepted{i}=port{i}.P_acc;  %incoming minus reflected, may be negative for passive port
     end
     
     
