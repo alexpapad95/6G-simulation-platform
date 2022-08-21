@@ -3,7 +3,7 @@ This 6G simulation platform is presented in "An Open Platform for Simulating the
 
 # Description
 The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. Initially, unit_cell_definition.m is utilized for the design of the unit cell. The unit cell consists of the substrate, the groundplane and the S-SRR. The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation.
-In boundary conditions, the MUR ABSORBING has been preferred against the PML. This selection is a fair trade-off between accuarcy and short run-time of simulation. The user is able to implement PML via the dedicated variable.
+In boundary conditions, the MUR ABSORBING has been preferred against the PML. This selection is a fair trade-off between accuracy and run-time of simulation. The user is able to implement PML via the dedicated variable.
 In the next step, the RIS_pairs_simulation.m creates two identical metasurfaces composed by periodically positioned, identical, unit cells. The S-SRRs are connected with the adjacent ones via load patches. The distance between the RIS pairs is, also, user-defined.
 
 ## Unit cell definition
@@ -31,8 +31,8 @@ The first action in the RIS_pairs_simulation.m is the definition of the S-SRRs d
    - The width and the thickness of the load patches.
 
 
-The simulation platform can support only odd values for the dimension of the RIS (dim_meta). For values lower than 15, the meshing structure is adopted automatically. We utilize the function tooclose in all the axis, reducing the simulation run-time. For greater dimensions, the meshing structure must be adjusted. One way is the reduction of both max_res and coarseResolution from lamda/40 and lamda/20 to lamda/20 and lamda/10, correspondingly.
-Another apporach is the adjustment of the "tooclose" function, increasing the respective criterion in "find".  
+The simulation platform can support only odd values for the dimension of the RIS (dim_meta). For values lower than 15, the meshing structure is created automatically. We utilize the function "tooclose" in all the axis, reducing the simulation run-time. For greater dimensions, the meshing structure must be adjusted. One way is the reduction of both max_res and coarseResolution from lamda/40 and lamda/20 to lamda/20 and lamda/10, correspondingly.
+Another approach is the adjustment of the "tooclose" function, increasing the respective criterion in "find".  
 
 The simulation is calculated the following outputs:
 
