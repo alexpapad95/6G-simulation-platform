@@ -25,7 +25,13 @@ The steps are the following:
 
    - Upgrade the dimension of RISs keeping all the other variables constant.
 
-The run-time is based on the selected dimension of the RISs and the computational resources.
+The run-time is based on the selected dimension of the RISs and the computational resources. In our experiments, we utilized a PC with 64-bit Windows 10, installed RAM 32GB and processor Intel(R) Core(TM) i7-10750H CPU @ 2.60 GHz. The run-times are presented in the following matrix:
+
+First Header | Second Header 
+ ------------ | ------------- 
+Content from cell 1 | Content from cell 2 
+Content in the first column | content in the second column 
+
 
 
 # Description
