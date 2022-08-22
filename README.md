@@ -18,7 +18,6 @@ The steps are the following:
    - The openEMS tool is activated through the followind command:
    ``` 
        $ addpath ('C:\openEMS\matlab');
-       hello
    ```
    - Open the unit_cell_definition.m file and design the unit cell in the selected resonating frequency.
 
