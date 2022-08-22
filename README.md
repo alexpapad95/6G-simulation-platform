@@ -6,7 +6,7 @@ The source code is freely available.
 
 The platform is presented in the following publication(s):
 
-    - Alexandros Papadopoulos, Antonios Lalas, Konstantinos Votis, Dimitrios Tyrovolas, George Karagiannidis, Sotiris Ioannidis, Christos Liaskos."An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces", In Proceedings of CNSM 2022,18th International Conference on Network and Service Management.
+   - Alexandros Papadopoulos, Antonios Lalas, Konstantinos Votis, Dimitrios Tyrovolas, George Karagiannidis, Sotiris Ioannidis, Christos Liaskos."An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces", In Proceedings of CNSM 2022,18th International Conference on Network and Service Management.
 
 
 # Description
