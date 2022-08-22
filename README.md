@@ -15,7 +15,8 @@ The steps are the following:
 
    - Open the MATLAB/Octave environment
 
-   - Open openEMS via the addpath command (it is described in the tutorial)
+   - The openEMS tool is activated through the followind command:
+                 *addpath ('C:\openEMS\matlab');
 
    - Open the unit_cell_definition.m file and design the unit cell in the selected resonating frequency.
 
