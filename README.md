@@ -5,7 +5,7 @@ In this paper, we develop an open simulation platform, aimed at modeling the phy
 The source code is freely available.
 
 The platform is presented in the following publication(s):
-    - {…authors…} "An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces", In Proceedings of … {conference, data} 
+    - Alexandros Papadopoulos, Antonios Lalas, Konstantinos Votis, Dimitrios Tyrovolas, George Karagiannidis, Sotiris Ioannidis, Christos Liaskos."An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces", In Proceedings of CNSM 2022,18th International Conference on Network and Service Management.
 
 
 # Description
