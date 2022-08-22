@@ -1,10 +1,16 @@
-#  6G Simulation Platform
-This 6G simulation platform is presented in "An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces". In this paper, we develop an open simulation platform, aimed at modeling the physical-layer electromagnetic coupling and propagation between RIS pairs. We present the platform by initially designing a basic unit cell, and then proceeding to progressively model and simulate multiple and larger RISs. The platform can be used for producing verifiable stochastic models for wireless communication in multi- RIS deployments, and its code is freely available to the public.
+#  6G Simulation Platform: From the Physical-layer to Networking with RIS
+
+In this paper, we develop an open simulation platform, aimed at modeling the physical-layer electromagnetic coupling and propagation between RIS pairs. We present the platform by initially designing a customizable physical layer, comprising a basic unit cell, and then proceeding to progressively model and simulate multiple and larger RISs. Then, we describe how the platform can be used for producing verifiable stochastic models for wireless communication in multi- RIS deployments, facilitating realistic network-layer studies of RIS-enabled 6G networks. 
+The source code is freely available.
+The platform is presented in the following publication(s):
+
 
 # Description
 The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. Initially, unit_cell_definition.m is utilized for the design of the unit cell. The unit cell consists of the substrate, the groundplane and the S-SRR. The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation.
 In boundary conditions, the MUR ABSORBING has been preferred against the PML. This selection is a fair trade-off between accuracy and run-time of simulation. The user is able to implement PML via the dedicated variable.
 In the next step, the RIS_pairs_simulation.m creates two identical metasurfaces composed by periodically positioned, identical, unit cells. The S-SRRs are connected with the adjacent ones via load patches. The distance between the RIS pairs is, also, user-defined.
+
+    - •	{…authors…} "An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces", In Proceedings of … {conference, data} 
 
 ## Unit cell definition
 The user is able to re-adjust:  
