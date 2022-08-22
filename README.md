@@ -8,6 +8,23 @@ The platform is presented in the following publication(s):
 
    - Alexandros Papadopoulos, Antonios Lalas, Konstantinos Votis, Dimitrios Tyrovolas, George Karagiannidis, Sotiris Ioannidis, Christos Liaskos."An Open Platform for Simulating the Physical Layer of 6G Communication Systems with Multiple Intelligent Surfaces", In Proceedings of CNSM 2022,18th International Conference on Network and Service Management.
 
+# Installation Instructions
+The user must install : MATLAB/Octave & openEMS (https://openems.de/start/)
+
+The steps are the following:
+
+   - Open the MATLAB/Octave environment
+
+   - Open openEMS via the addpath command (it is described in the tutorial)
+
+   - Open the unit_cell_definition.m file and design the unit cell in the selected resonating frequency.
+
+   - Pass in the RIS_pairs_simulation.m the dimensions of the unit cell. In the beginning, work on the 3x3 format in order the dimensions of load patches to be resulted.
+
+   - Upgrade the dimension of RISs keeping all the other variables constant.
+
+The run-time is based on the selected dimension of the RISs and the computational resources.
+
 
 # Description
 The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. Initially, unit_cell_definition.m is utilized for the design of the unit cell. The unit cell consists of the substrate, the groundplane and the S-SRR. The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation.
@@ -54,19 +71,4 @@ The simulation is calculated the following outputs:
 
 
 
-# Steps
-The user must install : MATLAB/Octave & openEMS (https://openems.de/start/)
 
-The steps are the following:
-
-   - Open the MATLAB/Octave environment
-
-   - Open openEMS via the addpath command (it is described in the tutorial)
-
-   - Open the unit_cell_definition.m file and design the unit cell in the selected resonating frequency.
-
-   - Pass in the RIS_pairs_simulation the dimensions of the unit cell. In the beginning, work on the 3x3 format in order the dimensions of load patches to be resulted.
-
-   - Upgrade the dimension of RISs keeping all the other variables constant.
-
-The run-time is based on the selected dimension of the RISs and the computational resources.
