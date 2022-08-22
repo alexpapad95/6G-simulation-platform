@@ -15,8 +15,11 @@ The steps are the following:
 
    - Open the MATLAB/Octave environment
 
-   - The openEMS tool is activated through the followind command:$ addpath ('C:\openEMS\matlab');
-
+   - The openEMS tool is activated through the followind command:
+   ``` 
+       $ addpath ('C:\openEMS\matlab');
+       hello
+   ```
    - Open the unit_cell_definition.m file and design the unit cell in the selected resonating frequency.
 
    - Pass in the RIS_pairs_simulation.m the dimensions of the unit cell. In the beginning, work on the 3x3 format in order the dimensions of load patches to be resulted.
