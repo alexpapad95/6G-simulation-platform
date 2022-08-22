@@ -17,7 +17,7 @@ The steps are the following:
 
    - The openEMS tool is activated through the followind command:
    ``` 
-       $ addpath ('C:\openEMS\matlab');
+        addpath ('C:\openEMS\matlab');
    ```
    - Open the unit_cell_definition.m file and design the unit cell in the selected resonating frequency.
 
@@ -25,52 +25,95 @@ The steps are the following:
 
    - Upgrade the dimension of RISs keeping all the other variables constant.
 
-The run-time is based on the selected dimension of the RISs and the computational resources. In our experiments, we utilized a PC with 64-bit Windows 10, installed RAM 32GB and processor Intel(R) Core(TM) i7-10750H CPU @ 2.60 GHz. The run-times are presented in the following matrix:
+The run-time is based on the selected dimension of the RISs and the computational resources. In our experiments, we utilized a PC with 64-bit Windows 10, installed RAM 32GB and processor Intel(R) Core(TM) i7-10750H CPU @ 2.60 GHz. For the specific specifications of the device, the run-times are presented in the following matrix:
 
 Dimensions of RIS | Run-time of code 
  ------------ | ------------- 
-unit_cell_definition | 1min 
-3x3 metasurfaces | 5min
-11x11 metsurfaces | 10min
+1x1 unit cells| 1min 
+3x3 metasurfaces | 2.2min
+11x11 metasurfaces | 1.5 hours
+
+The platform could be supported by multicore processing but not by GPU one. This limitation is sourced from the openEMS tool. 
 
 
+# Physical Layer Simulation: General Description 
+The proposed platform models the accurate electromagnetic propagation between two RIS units–whose composition, dimensions, and state are user-defined–while varying
+the distance between them. Each RIS consists of a planar arrangement of elements, known as unit cells. Each element hosts a port and a lumped element offering tunable impedance within a user-specified range. We consider that all the elements of the RIS1 are active, meaning that power is generated at each of their ports, enters the system and is altered by the state of the corresponding lumped element. Additionally, all the elements of the RIS2 are passive, meaning that their ports
+receive power emanated from RIS1, alter it based on the state of the local lumped element and re-emit it. Depending on its configuration, this setup emulates either: i) the RIS-RIS part of a transmitter-RIS-RIS-receiver communication, which is useful for deriving verifiable stochastic models for the inter-RIS part of a channel. ii) the transmitter-RIS or the RIS-receiver part of the communication.
 
-# Description
-The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. Initially, unit_cell_definition.m is utilized for the design of the unit cell. The unit cell consists of the substrate, the groundplane and the S-SRR. The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation.
-In boundary conditions, the MUR ABSORBING has been preferred against the PML. This selection is a fair trade-off between accuracy and run-time of simulation. The user is able to implement PML via the dedicated variable.
-In the next step, the RIS_pairs_simulation.m creates two identical metasurfaces composed by periodically positioned, identical, unit cells. The S-SRRs are connected with the adjacent ones via load patches. The distance between the RIS pairs is, also, user-defined.
+The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. Initially, unit_cell_definition.m is utilized for the design of the unit cell. The unit cell consists of the substrate, the groundplane and the S-SRR. The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation. In boundary conditions, the MUR ABSORBING has been preferred against the PML. This selection is a fair trade-off between accuracy and run-time of simulation. The user is able to implement PML via the dedicated variable. In the next step, the RIS_pairs_simulation.m creates two identical metasurfaces composed by periodically positioned, identical, unit cells. The S-SRRs are connected with the adjacent ones via load patches. The distance between the RIS pairs is, also, user-defined. 
 
 
 
 ## Unit cell definition
-The user is able to re-adjust:  
+The user is able to re-adjust the following variables:
 
-   - The central frequency and the bandwidth of the Gaussian excitation. 
-               
-   - The dimensions of S-SRRs.
-   
-   - The properties (electric permittivity, εr, and tangent loss,tand) and the dimensions of substrate (width, length and thickness).
-   
-   - The distance between the pair of unit cells. By default, the distance is 10 mm.
+   ``` 
+        f0=8e9; % central frequency of the Gaussian excitation
+        fc=2e9  % bandwidth of the Gaussian excitation
+       
+       %% dimensions of S-SRRs %%
+        L1=10.9; % length of the outer ring
+        L2=10.36; % width of the outer ring
+        G1=1.05; % width of the outer gap
+        width_outer=1.05; % width outer patch
+        width_iner=width_outer;
+        G3=1.05; %distance between iner and outer
+        G2=G1; % width of inner gap
+        srr_thickness=0.15;
+       
+       %% properties of substrate %%
+        substrate.epsR = 2.2; % electric permittivity
+        tand = 0.024; % tangent loss
+        substrate_srr.kappa = tand*2*pi*f0*EPS0*substrate.epsR;
+        feed.R = 50; % feed resistance
+       
+       %% dimensions of substrate %%
+        dx=1.85; 
+        dz=1.85+L2-L1;
+        substrate_srr.width = L2+dx;
+        substrate_srr.length =L1+dz;
+        substrate_srr.thickness = 4.8;
+
+       %% S-SRRs positions and distance between them %%
+        ssrr_x=0;
+        ssrr_y=15;
+        ssrr_z=0;
+       
+        ssrr2_x=0;
+        ssrr2_y=-15;
+        ssrr2_z=0;
+   ```
 
 
 ## RIS_pairs_simulation
 
 The first action in the RIS_pairs_simulation.m is the definition of the S-SRRs dimensions as they have resulted from the unit_cell_definition.m procedure. Subsequently, the user is able to re-adjust:
+   ```
+       %% dimensions of RISs %%
+        dim_meta=3; % The dimension displays the number of the unit cells per row and column.
+       
+       %% distance between the RIS units in any axis %%
+        RIS1_x=0;
+        RIS1_y=15;
+        RIS1_z=0;
 
-   - The dimension of the RIS pairs. The dimension displays the number of the unit cells per row and column.
-   
-   - The distance between the RIS units.
-   
-   - The distance between the S-SRRs.
-   
-   - The width and the thickness of the load patches.
+        RIS2_x=0; 
+        RIS2_y=-15;
+        RIS2_z=0;
+       
+       %% distance between the S-SRRs unit cells %%
+        dx=10; % x-axis distance between elements
+        dz=10; % z-axis distance between elements
 
+       %% width and thickness of the load patches %%
+        width_patch=1.2;
+        patch_thickness=srr_thickness;
+       
+   ```
 
-The simulation platform can support only odd values for the dimension of the RIS (dim_meta). For values lower than 15, the meshing structure is created automatically. We utilize the function "tooclose" in all the axis, reducing the simulation run-time. For greater dimensions, the meshing structure must be adjusted. One way is the reduction of both max_res and coarseResolution from lamda/40 and lamda/20 to lamda/20 and lamda/10, correspondingly.
-Another approach is the adjustment of the "tooclose" function, increasing the respective criterion in "find".  
-
-The simulation is calculated the following outputs:
+## Output Data
+The simulation produces the following outputs:
 
 - The feed point impedance of the active ports.
 - The incoming, reflected and accepted (subtraction of incoming and reflected) power in both active and passive ports.
@@ -79,5 +122,74 @@ The simulation is calculated the following outputs:
 - The values of frequency in which the active ports appear the maximized transmission coefficients with the passive ones.
 
 
+## Meshing in openEMS
+The simulation platform can support only odd values for the dimension of the RIS (dim_meta). For values lower than 15, the meshing structure is created automatically. We utilize the function "tooclose" in all the axis, reducing the simulation run-time. For larger dimensions, the meshing structure must be adjusted via 2 strategies that could be utilized simultaneously. 
+
+### Strategy 1
+The first action is the decrease of the resolution values. The initial values are:
+ ```
+        max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /40; 
+        coarseResolution = c0/(f0 + fc) / unit / 20;
+   ```
+The valuer for larger dimensions of RISs could be:
+ ```
+        max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /20; 
+        coarseResolution = c0/(f0 + fc) / unit / 10;
+   ```
+### Strategy 2
+The "tooclose" function intervenes to avoid a long-time simulation in the case that the distance between adjacent meshing lines becomes less than a pre-defined
+threshold in each axis. By default, this threshold is equal to the half of the maximum resolution. 
+ ```
+tooclose = find (diff(mesh.y) < max_res/2);
+if ~isempty(tooclose)
+    mesh.y(tooclose) = (mesh.y(tooclose) + mesh.y(tooclose+1))/2;
+    mesh.y(tooclose + 1) = [];
+end
+
+tooclose = find (diff(mesh.x) < max_res/2);
+if ~isempty(tooclose)
+    mesh.x(tooclose) = (mesh.x(tooclose) + mesh.x(tooclose+1))/2;
+    mesh.x(tooclose + 1) = [];
+end
+
+tooclose = find (diff(mesh.z) < max_res/2);
+if ~isempty(tooclose)
+    mesh.z(tooclose) = (mesh.z(tooclose) + mesh.z(tooclose+1))/2;
+    mesh.z(tooclose + 1) = [];
+end
+   ```
+The second strategy is the increase of the function's threshold in order it to intervene more often. The code could be configured as:
+ ```
+tooclose = find (diff(mesh.y) < max_res);
+if ~isempty(tooclose)
+    mesh.y(tooclose) = (mesh.y(tooclose) + mesh.y(tooclose+1))/2;
+    mesh.y(tooclose + 1) = [];
+end
+
+tooclose = find (diff(mesh.x) < max_res);
+if ~isempty(tooclose)
+    mesh.x(tooclose) = (mesh.x(tooclose) + mesh.x(tooclose+1))/2;
+    mesh.x(tooclose + 1) = [];
+end
+
+tooclose = find (diff(mesh.z) < max_res);
+if ~isempty(tooclose)
+    mesh.z(tooclose) = (mesh.z(tooclose) + mesh.z(tooclose+1))/2;
+    mesh.z(tooclose + 1) = [];
+end
+   ```
+
+
+# Usage in wireless channel modeling and networking 
+The authors intend to update the repository for a span of three studies on the subject of RIS-enabled 6G communications as follows:
+1. Physical layer, covering the RIS pair design and EM simulation, up to the derivation of S-parameters. (Present paper)
+2. Macroscopic channel modeling (path loss and fading) for inter-RIS communications, based on multiple runs of the present platform, on various settings (indoors, outdoors, mobility, etc.) and using stochastic modeling.
+3. Network layer, employing the statistical models of #2 for the real-time simulation of a communication network, studying the effect of RIS on MAC and network-layer protocols.
+As the project progresses, additional sections and source code will be added for steps #2 and #3.
+Here we present an outline of this process. 
+First, consider the S-parameters exported by the platform for a given RIS pair configuration (i.e., specific EM design and distance). Each specific parameter describes the amount of power (and phase) entering each element of the receiving RIS, from each element of the transmitting RIS. Notice that the employed approach, i.e., using the S-parameters as the basic data export unit of the platform, provides the benefit of easily cascading multiple, successive RIS units, and deducing the received signal at the end-point(s) of interest. 
+Second, the macroscopic channel modeling seeks to extract a stochastic channel model for each setting of interest, in order to avoid the need for frequent and time-consuming platform runs.The channel model considers various random RIS placements (varying distance, orientation, position in a real setup).For each randomized case, multiple platform runs are executed and stochastic models are extracted to describe the path loss and multipath fading phenomena per case.
+(Notice that this step can be skipped, and instead invoke runs in the platform as required for a specific setup.However, the existence of a validated stochastic model adds versatility to the simulation process).
+Finally, the network layer abstracts the physics of RIS and treats the system as a graph. The graph nodes are the RIS units and the user devices. A link is inserted in the graph for every node pair in connectivity (e.g., line of sight). Each link is assigned a macroscopic wireless channel model from step #2, based on the conditions around the node pair (e.g., mobility, distance, obstacles around them, etc.). In tandem with an encoding and modulation of interest, the data error model and throughput can be deduced per link. From this point and on, network-layer analysis can be performed, which can model other network infrastructure (e.g., routers) as additional nodes in the graph. Notice that the network layer can model the control latency between the RIS units and the central (e.g., SDN) controller that continuously reconfigures them in order to constantly adapt to the user objectives and the overall system state.
 
 
