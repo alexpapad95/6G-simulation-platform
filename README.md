@@ -115,12 +115,48 @@ The first action in the RIS_pairs_simulation.m is the definition of the S-SRRs d
 ## Output Data
 The simulation produces the following outputs:
 
-- The feed point impedance of the active ports.
-- The incoming, reflected and accepted (subtraction of incoming and reflected) power in both active and passive ports.
+- The feed point impedance (Zin) of the active ports.
+- The incoming (P_incoming), reflected (P_reflected) and accepted (P_accepted) (subtraction of incoming and reflected) power in both active and passive ports. The accepted power is the substration of the incoming and reflected power. Therefore, it may be negative for the passive ports.
 - The reflection coefficients of the active ports and the transmission coefficients of them with the passive ones (s-parameters).
-- The resonating frequency in which the reflection coefficients of the active ports are minimized.
-- The values of frequency in which the active ports appear the maximized transmission coefficients with the passive ones.
+- The resonating frequency (f_res) in which the reflection coefficients of the active ports are minimized.
+- The values of frequency in which the active ports appear the maximized transmission coefficients with the passive ones (f_coupling).
 
+There are two entities that determine the size of the output data; the dimension of RISs (dim_meta) and the frequency interval in which the simulation platform works. We define the interval as (f0-fc,f0+fc) and we separate it in 1001 parts. The dedicated command is presented below. By all means, the user is able to increase or decrease the number of parts for higher accuracy or for lower memory demand, correspondingly.
+
+   ```
+      freq = linspace(f0-fc,f0+fc,1001);
+   ```
+In the following matrix, we present the dimension of each output using two parameters; dim_meta and interval_parts.
+
+ Output data| Dimension 
+ ------------ | ------------- 
+Zin| 1x2dim_ $meta^2$
+P_incoming | 1 x 2dim_ $meta^2$
+P_reflected | 1 x 2dim_ $meta^2$
+P_accepted | 1 x 2dim_ $meta^2$
+s-parameters | 2dim_ $meta^2$ x 2dim_ $meta^2$ x interval_parts
+f_res | 1 x dim_ $meta^2$
+f_coupling | 2dim_ $meta^2$ x 2dim_ $meta^2$
+
+The output data can be saved as MATLAB files or as CSV files using the following commands:
+
+   ```
+     writecell(f_res,'f_res.csv')
+     writecell(f_coupling,'f_coupling.csv')
+     writecell(s,'s_parameters.csv')
+     writecell(Pincoming,'P_incoming.csv')
+     writecell(Preflected,'P_reflected.csv')
+     writecell(Paccepted,'P_accepted.csv')
+     writecell(P_in,'P_in.csv')
+   ```
+Some indicative output data for dim_meta=3 and interval_parts=1000 are the following:
+[P_in.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400473/P_in.csv), 
+[P_incoming.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400474/P_incoming.csv), 
+[P_reflected.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400476/P_reflected.csv), 
+[P_accepted.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400478/P_accepted.csv), 
+[s_parameters.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400466/s_parameters.csv), 
+[f_coupling.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400468/f_coupling.csv), 
+[f_res.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400470/f_res.csv). 
 
 ## Meshing in openEMS
 The simulation platform can support only odd values for the dimension of the RIS (dim_meta). For values lower than 15, the meshing structure is created automatically. We utilize the function "tooclose" in all the axis, reducing the simulation run-time. For larger dimensions, the meshing structure must be adjusted via 2 strategies that could be utilized simultaneously. 
