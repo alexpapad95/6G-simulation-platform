@@ -47,8 +47,9 @@ receive power emanated from RIS1, alter it based on the state of the local lumpe
 The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. 
 
  <div align="center">
- 
-  ![1](https://user-images.githubusercontent.com/72256279/186158027-d933c138-ed3c-4b6f-bc6b-81287da6db3e.jpg)
+
+   ![1](https://user-images.githubusercontent.com/72256279/186215268-bfe07550-6c0b-4da2-b7f9-911d88d0451e.jpg)
+
  
  </div>  
  
