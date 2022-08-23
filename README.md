@@ -153,7 +153,7 @@ In the following matrix, we present the dimension of each output using two param
 
 | Output data   | Dimension     
 |----------|:-------------:|
-| Zin | 1x2dim_meta $^2$ |
+| Zin | 1x2*dim_meta $^2$ |
 | P_incoming | 1 x 2dim_meta $^2$ |
 | P_reflected | 1 x 2dim_meta $^2$ |
 | P_accepted | 1 x 2dim_meta $^2$ |
