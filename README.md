@@ -153,13 +153,13 @@ In the following matrix, we present the dimension of each output using two param
 
 | Output data   | Dimension     
 |----------|:-------------:|
-| Zin | 1x2dim_ $meta^2$ |
-| P_incoming | 1 x 2dim_ $meta^2$ |
-| P_reflected | 1 x 2dim_ $meta^2$ |
-| P_accepted | 1 x 2dim_ $meta^2$ |
-| s-parameters | 2dim_ $meta^2$ x 2dim_ $meta^2$ x interval_parts |
-| f_res | 1 x dim_ $meta^2$ |
-| f_coupling | 2dim_ $meta^2$ x 2dim_ $meta^2$ |
+| Zin | 1x2dim_meta $^2$ |
+| P_incoming | 1 x 2dim_meta $^2$ |
+| P_reflected | 1 x 2dim_meta $^2$ |
+| P_accepted | 1 x 2dim_meta $^2$ |
+| s-parameters | 2dim_meta $^2$ x 2dim_meta $^2$ x interval_parts |
+| f_res | 1 x dim_meta $^2$ |
+| f_coupling | 2dim_meta $^2$ x 2dim_meta $^2$ |
 
 </div>
 
