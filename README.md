@@ -26,15 +26,18 @@ The steps are the following:
    - Upgrade the dimension of RISs keeping all the other variables constant.
 
 The run-time is based on the selected dimension of the RISs and the computational resources. In our experiments, we utilized a PC with 64-bit Windows 10, installed RAM 32GB and processor Intel(R) Core(TM) i7-10750H CPU @ 2.60 GHz. For the specific specifications of the device, the run-times are presented in the following matrix:
+ 
+ <div align="center">
 
-Dimensions of RIS | Run-time of code 
- ------------ | ------------- 
-1x1 unit cells| 1min 
-3x3 metasurfaces | 2.2min
-11x11 metasurfaces | 1.5 hours
+| Dimensions of RIS   |      Run-time of code       
+|----------|:-------------:|
+|1x1 unit cells| 1min |
+| 3x3 metasurfaces | 2.2min |
+|11x11 metasurfaces | 1.5 hours |
+
+</div>
 
 The platform could be supported by multicore processing but not by GPU one. This limitation is sourced from the openEMS tool. 
-
 
 # Physical Layer Simulation: General Description 
 The proposed platform models the accurate electromagnetic propagation between two RIS units–whose composition, dimensions, and state are user-defined–while varying
@@ -43,12 +46,19 @@ receive power emanated from RIS1, alter it based on the state of the local lumpe
 
 The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. 
 
+ <div align="center">
 
 ![diagram](https://user-images.githubusercontent.com/72256279/186128323-6377929c-d73c-4ec3-83ba-ea18cc5d1b17.jpg)
 
+ </div>  
 The unit cell consists of the substrate, the groundplane and the Square-Split Resonator Ring (S-SRR). The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation. 
 
-![1](https://user-images.githubusercontent.com/72256279/186128804-4a81d4a0-b86a-49d8-ab35-c155fc1511b4.PNG)
+
+ <div align="center">
+   
+![3](https://user-images.githubusercontent.com/72256279/186148890-ae054ed0-d126-4454-9935-8d575735a5aa.png)
+
+</div>  
 
 Initially the user determines the resonating frequency, meaning the frequency of the Gaussian excitation, the properties of the substrate and the positions, consequently and the distance, between the unit cells. These parameters must be remained stable in the following procedure. After that the fine tuning stage begins. The user re-defines the dimensions of both substrate and S-SRR until the resonation to be achieved. The criteria that should be held in order the fine tuning to be done are described in the Section III, subsection C of the paper. The whole procedure is presented in Section IV/Step 1.
 
@@ -138,15 +148,19 @@ There are two entities that determine the size of the output data; the dimension
    ```
 In the following matrix, we present the dimension of each output using two parameters; dim_meta and interval_parts.
 
- Output data| Dimension 
- ------------ | ------------- 
-Zin| 1x2dim_ $meta^2$
-P_incoming | 1 x 2dim_ $meta^2$
-P_reflected | 1 x 2dim_ $meta^2$
-P_accepted | 1 x 2dim_ $meta^2$
-s-parameters | 2dim_ $meta^2$ x 2dim_ $meta^2$ x interval_parts
-f_res | 1 x dim_ $meta^2$
-f_coupling | 2dim_ $meta^2$ x 2dim_ $meta^2$
+ <div align="center">
+
+| Output data   | Dimension     
+|----------|:-------------:|
+| Zin | 1x2dim_ $meta^2$ |
+| P_incoming | 1 x 2dim_ $meta^2$ |
+| P_reflected | 1 x 2dim_ $meta^2$ |
+| P_accepted | 1 x 2dim_ $meta^2$ |
+| s-parameters | 2dim_ $meta^2$ x 2dim_ $meta^2$ x interval_parts |
+| f_res | 1 x dim_ $meta^2$ |
+| f_coupling | 2dim_ $meta^2$ x 2dim_ $meta^2$ |
+
+</div>
 
 The output data can be saved as MATLAB files or as CSV files using the following commands:
 
