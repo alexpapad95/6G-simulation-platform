@@ -47,9 +47,9 @@ receive power emanated from RIS1, alter it based on the state of the local lumpe
 The simulation platform consists of two components; unit_cell_definition.m & RIS_pairs_simulation.m. 
 
  <div align="center">
-
-![diagram](https://user-images.githubusercontent.com/72256279/186128323-6377929c-d73c-4ec3-83ba-ea18cc5d1b17.jpg)
-
+ 
+  ![1](https://user-images.githubusercontent.com/72256279/186158027-d933c138-ed3c-4b6f-bc6b-81287da6db3e.jpg)
+ 
  </div>  
  
 The unit cell consists of the substrate, the groundplane and the Square-Split Resonator Ring (S-SRR). The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation. 
@@ -57,7 +57,7 @@ The unit cell consists of the substrate, the groundplane and the Square-Split Re
 
  <div align="center">
    
-![3](https://user-images.githubusercontent.com/72256279/186148890-ae054ed0-d126-4454-9935-8d575735a5aa.png)
+   ![3](https://user-images.githubusercontent.com/72256279/186148890-ae054ed0-d126-4454-9935-8d575735a5aa.png)
 
 </div>  
 
