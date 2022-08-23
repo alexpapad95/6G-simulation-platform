@@ -25,15 +25,15 @@ The steps are the following:
 
    - Upgrade the dimension of RISs keeping all the other variables constant.
 
-The run-time is based on the selected dimension of the RISs and the computational resources. In our experiments, we utilized a PC with 64-bit Windows 10, installed RAM 32GB and processor Intel(R) Core(TM) i7-10750H CPU @ 2.60 GHz. For the specific specifications of the device, the run-times are presented in the following matrix:
+The run-time is based on the selected dimension of the RISs and the computational resources. In our experiments, we utilized a PC with 64-bit Windows 10, installed RAM 32GB and processor Intel(R) Core(TM) i7-10750H CPU @ 2.60 GHz. For the given specifications of the device, the run-times are presented in the following matrix:
  
  <div align="center">
 
 | Dimensions of RIS   |      Run-time of code       
 |----------|:-------------:|
-|1x1 unit cells| 1min |
+| 1x1 unit cells| 1min |
 | 3x3 metasurfaces | 2.2min |
-|11x11 metasurfaces | 1.5 hours |
+| 11x11 metasurfaces | 1.5 hours |
 
 </div>
 
@@ -51,6 +51,7 @@ The simulation platform consists of two components; unit_cell_definition.m & RIS
 ![diagram](https://user-images.githubusercontent.com/72256279/186128323-6377929c-d73c-4ec3-83ba-ea18cc5d1b17.jpg)
 
  </div>  
+ 
 The unit cell consists of the substrate, the groundplane and the Square-Split Resonator Ring (S-SRR). The properties of the substrate are user-defined while the groundplane and the S-SRR are layers of metal. In the gap of S-SRR's outer ring, a lumped port is positioned. This port could radiate or not. The radiation is a Gaussian excitation. 
 
 
@@ -60,7 +61,7 @@ The unit cell consists of the substrate, the groundplane and the Square-Split Re
 
 </div>  
 
-Initially the user determines the resonating frequency, meaning the frequency of the Gaussian excitation, the properties of the substrate and the positions, consequently and the distance, between the unit cells. These parameters must be remained stable in the following procedure. After that the fine tuning stage begins. The user re-defines the dimensions of both substrate and S-SRR until the resonation to be achieved. The criteria that should be held in order the fine tuning to be done are described in the Section III, subsection C of the paper. The whole procedure is presented in Section IV/Step 1.
+Initially, the user determines the resonating frequency, meaning the frequency of the Gaussian excitation, the properties of the substrate and the positions, consequently and the distance, of the unit cells. These parameters must be remained stable in the following procedure. After that the fine tuning stage begins. The user re-defines the dimensions of both substrate and S-SRR until the resonation to be achieved. The criteria that should be held in order the fine tuning to be done are described in the Section III, subsection C of the paper. The whole procedure is presented in Section IV/Step 1.
 
 After that, the user passes the dimensions of the substrate and the S-SRRs in the RIS_pair_simulation. Apart from that, the dimension of the RISs and the position of them have also to be defined and remained stable. The fine tuning procedure in this phase includes the determination of the distance between the adjacent S-SRRs and the dimensions of the load patches. This process is presented in Section IV/Steps 2,3. Once it is completed, the user is able to change the position of the RISs observing their behavior based on the output data (see below).
 
