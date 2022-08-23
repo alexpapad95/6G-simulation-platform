@@ -77,11 +77,11 @@ The user is able to re-adjust the following variables:
 
        %% S-SRRs positions and distance between them %%
         ssrr_x=0;
-        ssrr_y=15;
+        ssrr_y=5;
         ssrr_z=0;
        
         ssrr2_x=0;
-        ssrr2_y=-15;
+        ssrr2_y=-5;
         ssrr2_z=0;
    ```
 
@@ -95,11 +95,11 @@ The first action in the RIS_pairs_simulation.m is the definition of the S-SRRs d
        
        %% distance between the RIS units in any axis %%
         RIS1_x=0;
-        RIS1_y=15;
+        RIS1_y=5;
         RIS1_z=0;
 
         RIS2_x=0; 
-        RIS2_y=-15;
+        RIS2_y=-5;
         RIS2_z=0;
        
        %% distance between the S-SRRs unit cells %%
