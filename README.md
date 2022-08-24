@@ -193,7 +193,7 @@ The first action is the decrease of the resolution values. The initial values ar
         max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /40; 
         coarseResolution = c0/(f0 + fc) / unit / 20;
    ```
-The valuer for larger dimensions of RISs could be:
+The value for larger dimensions of RISs could be:
  ```
         max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /20; 
         coarseResolution = c0/(f0 + fc) / unit / 10;
