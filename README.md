@@ -175,7 +175,7 @@ The output data can be saved as MATLAB files or as CSV files using the following
      writecell(Paccepted,'P_accepted.csv')
      writecell(P_in,'P_in.csv')
    ```
-Some indicative output data for dim_meta=3 and interval_parts=1000 are the following:
+Some indicative output data for dim_meta=3 and interval_parts=1001 are the following:
 [P_in.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400473/P_in.csv), 
 [P_incoming.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400474/P_incoming.csv), 
 [P_reflected.csv](https://github.com/alexpapad95/6G_simulation_platform/files/9400476/P_reflected.csv), 
