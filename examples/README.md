@@ -6,13 +6,11 @@ In this folder, some examples of the platform utilization are included. First, w
 -  RIS_pairs_simulation_8GHz_Rogers RTDuroid 5880.m
 
 Additionally, we present some examples in which lumped elements are included in order the local tunability to be feasible. The dedicated codes are:
-- RIS_pairs_simulation_5GHz_tunable_ports.m
 - RIS_pairs_simulation_8GHz_tunable_ports.m
-- RIS_pairs_simulation_5GHz_tunable_load_patches.m
 - RIS_pairs_simulation_8GHz_tunable_load_patches.m
 
 
-## Resonating in different frequencies with plenty substrate properties 
+## Resonating in different frequencies with different substrate types 
 
 We have created RIS pairs at 5GHz with the usage of Rogers RTDuroid 5880 substrate. Firstly, we define the resonating frequency at 5GHz and the properties of substrate. We complete the fine tuning procedure in unit_cell_definition_5GHz_Rogers RTDuroid 5880.m as it is described in the 6G-simulation-platform. After, that we pass the dimensions of the S-SRR in the RIS_pairs_simulation_5GHz_Rogers RTDuroid 5880.m and we work with dim_meta=3 in order the final setup to be determined. 
 The same procedure is repeated for 8GHz in the codes unit_cell_definition_8GHz_Rogers RTDuroid 5880.m and RIS_pairs_simulation_8GHz_Rogers RTDuroid 5880.m
@@ -44,7 +42,7 @@ The tunability of metasurfaces' unit cells could be either global or local. In t
 Simulating a local tunability mechanism, we have introduced in the previous codes lumped elements in two points; in the top of the lumped ports that radiate and the at middle of the load patches that connect the adjacent S-SRRs. The common utilization of both methods could easily be done. 
 We use values for reactance from 0 to 5 Ohms and for capacitance from 1 to 5 pF, corresponding to the parameters of commercially available chip varactors for the target frequency bands.
 
-The structure that is created with the usage of RIS_pairs_simulation_5GHz_tunable_ports.m and RIS_pairs_simulation_8GHz_tunable_ports.m, for dim_meta=3, is the following:
+The structure that is created with the usage of RIS_pairs_simulation_8GHz_tunable_ports.m, for dim_meta=3, is the following:
 
  <div align="center">
    
@@ -63,7 +61,7 @@ The user is able to reconfigure the values of reactance and capacitance in the p
    ```
 
 
-The structure that is created with the usage of RIS_pairs_simulation_5GHz_tunable_load_patches.m and RIS_pairs_simulation_8GHz_tunable_load_patches.m, for dim_meta=3, is the following:
+The structure that is created with the usage of RIS_pairs_simulation_8GHz_tunable_load_patches.m, for dim_meta=3, is the following:
 
  <div align="center">
    
