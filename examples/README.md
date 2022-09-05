@@ -1,7 +1,7 @@
 #  6G Simulation Platform: Examples
 In this folder, some examples of the platform utilization are included. 
 
-# Resonating in different frequencies with plenty sustrate properties 
+## Resonating in different frequencies with plenty sustrate properties 
 
 We have created RIS pairs at 5GHz and 8GHz at Rogers RTDuroid 5880 substrate. The respective codes are unit_cell_definition_5GHz_Rogers RTDuroid 5880.m and unit_cell_definition_8GHz_Rogers RTDuroid 5880.m, correspondingly, for the design of the unit cell and the required fine tuning procedure. The RIS_pairs_simulation_5GHz_Rogers RTDuroid 5880.m and RIS_pairs_simulation_8GHz_Rogers RTDuroid 5880.m create the respective pairs of the RIS.
 The most widespread types of substrate that could be utilized are the following:
@@ -9,7 +9,7 @@ The most widespread types of substrate that could be utilized are the following:
  <div align="center">
 
 | Name of material   |      dielectric constant   |  tangent loss
-|----------|:-------------:|
+|----------|:-------------:|:-------------:
 | Rogers RO4350B | 3.66  |   0.0037 |
 | Rogers RTDuroid 5880 | 2.2 | 0.0009 |
 | FR-4 | 4.3 | 0.025 |
@@ -17,7 +17,7 @@ The most widespread types of substrate that could be utilized are the following:
 
 </div>
 
-# Local tunability of the RISs
+## Local tunability of the RISs
 
 We have introduced in the previous codes lumped elements in two points; in the top of the lumped ports that are radiated and the middle of the load patches that connect the adjacent S-SRRs. The common utilization of both methods could easily be done. 
 We use values for reactance from 0 to 5 Ohms and for capacitance from 1 to 5 pF, corresponding to the parameters of commercially available chip varactors for the target frequency bands.
@@ -26,7 +26,8 @@ The structure that is created with the usage of RIS_pairs_simulation_5GHz_tunabl
 
  <div align="center">
    
-   ![3](https://user-images.githubusercontent.com/72256279/186148890-ae054ed0-d126-4454-9935-8d575735a5aa.png)
+   ![ports](https://user-images.githubusercontent.com/72256279/188427806-34c14a1f-e0ac-48d2-9406-f83145f870b3.PNG)
+
 
 </div>  
 
@@ -44,13 +45,14 @@ The structure that is created with the usage of RIS_pairs_simulation_5GHz_tunabl
 
  <div align="center">
    
-   ![3](https://user-images.githubusercontent.com/72256279/186148890-ae054ed0-d126-4454-9935-8d575735a5aa.png)
+   ![load_patches_1](https://user-images.githubusercontent.com/72256279/188427829-596cb144-a1aa-4e15-9db9-1b01b2bdc251.PNG)
+
 
 </div>  
 
  <div align="center">
    
-   ![3](https://user-images.githubusercontent.com/72256279/186148890-ae054ed0-d126-4454-9935-8d575735a5aa.png)
+![load_patches_2](https://user-images.githubusercontent.com/72256279/188427848-712c95f4-b468-44a7-b350-954804cf1219.PNG)
 
 </div>  
 
