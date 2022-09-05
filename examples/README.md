@@ -54,9 +54,9 @@ The user is able to reconfigure the values of reactance and capacitance in the p
 
 
 ``` 
-    lumped_c = randi([10 50], 2,dim_meta^2)/10;
-    lumped_c=lumped_c*1e-12;
-    lumped_r= randi([0 50], 2,dim_meta^2)/10;
+ lumped_c = randi([10 50], 2,dim_meta^2)/10;
+ lumped_c=lumped_c*1e-12;
+ lumped_r= randi([0 50], 2,dim_meta^2)/10;
    ```
 
 
@@ -79,9 +79,9 @@ The user is able to reconfigure the values of reactance and capacitance in the l
 
 
 ``` 
-    lumped_c = randi([10 50], 2,4*dim_meta*(dim_meta-1))/10;
-    lumped_c=lumped_c*1e-12;
-    lumped_r= randi([0 50], 2,4*dim_meta*(dim_meta-1))/10;
+lumped_c = randi([10 50], 2,4*dim_meta*(dim_meta-1))/10;
+lumped_c=lumped_c*1e-12;
+lumped_r= randi([0 50], 2,4*dim_meta*(dim_meta-1))/10;
    ```
 
 
