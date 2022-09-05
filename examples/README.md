@@ -1,9 +1,9 @@
 #  6G Simulation Platform: Examples
 In this folder, some examples of the platform utilization are included. First, we create unit cells and RIS pair at 5 and 8GHz with the usage of the Rogers RTDuroid 5880 substrate. The respective codes are:
--  unit_cell_definition_5GHz_Rogers RTDuroid 5880.m
--  unit_cell_definition_8GHz_Rogers RTDuroid 5880.m
--  RIS_pairs_simulation_5GHz_Rogers RTDuroid 5880.m
--  RIS_pairs_simulation_8GHz_Rogers RTDuroid 5880.m
+-  unit_cell_definition_5GHz_Rogers_RTDuroid 5880.m
+-  unit_cell_definition_8GHz_Rogers_RTDuroid 5880.m
+-  RIS_pairs_simulation_5GHz_Rogers_RTDuroid 5880.m
+-  RIS_pairs_simulation_8GHz_Rogers_RTDuroid 5880.m
 
 Additionally, we present some examples in which lumped elements are included in order the local tunability to be feasible. The dedicated codes are:
 - RIS_pairs_simulation_8GHz_tunable_ports.m
@@ -42,8 +42,7 @@ The tunability of metasurfaces' unit cells could be either global or local. In t
 Simulating a local tunability mechanism, we have introduced in the previous codes lumped elements in two points; in the top of the lumped ports that radiate and the at middle of the load patches that connect the adjacent S-SRRs. The common utilization of both methods could easily be done. 
 We use values for reactance from 0 to 5 Ohms and for capacitance from 1 to 5 pF, corresponding to the parameters of commercially available chip varactors for the target frequency bands.
 
-The structure that is created with the usage of RIS_pairs_simulation_8GHz_tunable_ports.m, for dim_meta=3, is the following:
-
+We work on the structure that has been resulted from the usage of the Rogers RTDuroid 5880 substrate at 8GHz for dim_meta=3. The depicted structure is created with the usage of RIS_pairs_simulation_8GHz_tunable_ports.m:
  <div align="center">
    
    ![ports](https://user-images.githubusercontent.com/72256279/188427806-34c14a1f-e0ac-48d2-9406-f83145f870b3.PNG)
@@ -61,7 +60,7 @@ The user is able to reconfigure the values of reactance and capacitance in the p
    ```
 
 
-The structure that is created with the usage of RIS_pairs_simulation_8GHz_tunable_load_patches.m, for dim_meta=3, is the following:
+In the same format, the usage of RIS_pairs_simulation_8GHz_tunable_load_patches.m introduce lumped elements at the middle of the patches. The structure for dim_meta=3 is the following:
 
  <div align="center">
    
