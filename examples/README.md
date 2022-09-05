@@ -15,7 +15,7 @@ Additionally, we present some examples in which lumped elements are included in 
 We have created RIS pairs at 5GHz with the usage of Rogers RTDuroid 5880 substrate. Firstly, we define the resonating frequency at 5GHz and the properties of substrate. We complete the fine tuning procedure in unit_cell_definition_5GHz_Rogers RTDuroid 5880.m as it is described in the 6G-simulation-platform. After, that we pass the dimensions of the S-SRR in the RIS_pairs_simulation_5GHz_Rogers RTDuroid 5880.m and we work with dim_meta=3 in order the final setup to be determined. 
 The same procedure is repeated for 8GHz in the codes unit_cell_definition_8GHz_Rogers RTDuroid 5880.m and RIS_pairs_simulation_8GHz_Rogers RTDuroid 5880.m
 
-The user is able to select any substrate types.The most widespread types of them that are described in the research literature are the following:
+The user is able to select any substrate types. The most widespread types of them that are described in the research literature are the following:
 
  <div align="center">
 
