@@ -19,7 +19,7 @@ The most widespread types of substrate that could be utilized are the following:
 
 ## Local tunability of the RISs
 
-We have introduced in the previous codes lumped elements in two points; in the top of the lumped ports that are radiated and the middle of the load patches that connect the adjacent S-SRRs. The common utilization of both methods could easily be done. 
+We have introduced in the previous codes lumped elements in two points; in the top of the lumped ports that radiate and the at middle of the load patches that connect the adjacent S-SRRs. The common utilization of both methods could easily be done. 
 We use values for reactance from 0 to 5 Ohms and for capacitance from 1 to 5 pF, corresponding to the parameters of commercially available chip varactors for the target frequency bands.
 
 The structure that is created with the usage of RIS_pairs_simulation_5GHz_tunable_ports.m and RIS_pairs_simulation_8GHz_tunable_ports.m, for dim_meta=3, is the following:
