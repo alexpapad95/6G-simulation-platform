@@ -37,12 +37,14 @@ However, because of the structural makeup of the unit cells, re-design procedure
 
 By including "tuning" capacity in the unit cells, the properties of the metamaterials and metasurfaces can be changed. Then, by altering the stimulus, their electromagnetic wave behavior can be modified externally. The tuning can also be managed by a computer program. According to this perspective, these programmable metasurfaces offer greater possibilities for achieving dynamical wave applications without the need of re-fabrication.
 
-The tunability of metasurfaces' unit cells could be either global or local. In the global tunability, all the states of the unit cells are reconfigured with the same way. This method is far easier than the local one but lacks in the functionalities that could be achieved. 
+The tunability of metasurfaces' unit cells could be either global or local. In the global tunability, all the states of the unit cells are reconfigured with the same way. This method is far easier than the local one but lacks of the functionalities that could be achieved. 
 
-Simulating a local tunability mechanism, we have introduced in the previous codes lumped elements in two points; in the top of the lumped ports that radiate and the at middle of the load patches that connect the adjacent S-SRRs. The common utilization of both methods could easily be done. 
+Simulating a local tunability mechanism, we have introduced in the previous codes lumped elements that could be configured with different way in two points; in the top of the lumped ports that radiate and the at middle of the load patches that connect the adjacent S-SRRs. The common utilization of both methods could easily be done. 
+
 We use values for reactance from 0 to 5 Ohms and for capacitance from 1 to 5 pF, corresponding to the parameters of commercially available chip varactors for the target frequency bands.
 
 We work on the structure that has been resulted from the usage of the Rogers RTDuroid 5880 substrate at 8GHz for dim_meta=3. The depicted structure is created with the usage of RIS_pairs_simulation_8GHz_tunable_ports.m:
+
  <div align="center">
    
    ![ports](https://user-images.githubusercontent.com/72256279/188427806-34c14a1f-e0ac-48d2-9406-f83145f870b3.PNG)
@@ -52,31 +54,21 @@ We work on the structure that has been resulted from the usage of the Rogers RTD
 
 The user is able to reconfigure the values of reactance and capacitance in the ports through the dedicated commands:
 
-
 ``` 
- lumped_c = randi([10 50], 2,dim_meta^2)/10;
- lumped_c=lumped_c*1e-12;
- lumped_r= randi([0 50], 2,dim_meta^2)/10;
+lumped_c = randi([10 50], 2,dim_meta^2)/10;
+lumped_c=lumped_c*1e-12;
+lumped_r= randi([0 50], 2,dim_meta^2)/10;
    ```
-
 
 In the same format, the usage of RIS_pairs_simulation_8GHz_tunable_load_patches.m introduce lumped elements at the middle of the patches. The structure for dim_meta=3 is the following:
 
  <div align="center">
    
    ![load_patches_1](https://user-images.githubusercontent.com/72256279/188427829-596cb144-a1aa-4e15-9db9-1b01b2bdc251.PNG)
-
-
-</div>  
-
- <div align="center">
-   
-![load_patches_2](https://user-images.githubusercontent.com/72256279/188427848-712c95f4-b468-44a7-b350-954804cf1219.PNG)
-
+   ![load_patches_2](https://user-images.githubusercontent.com/72256279/188427848-712c95f4-b468-44a7-b350-954804cf1219.PNG)
 </div>  
 
 The user is able to reconfigure the values of reactance and capacitance in the load patches through the dedicated commands:
-
 
 ``` 
 lumped_c = randi([10 50], 2,4*dim_meta*(dim_meta-1))/10;
