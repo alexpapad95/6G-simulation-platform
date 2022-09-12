@@ -200,13 +200,13 @@ The simulation platform can support only odd values for the dimension of the RIS
 ### Strategy 1
 The first action is the decrease of the resolution values. The initial values are:
  ```
-        max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /40; 
-        coarseResolution = c0/(f0 + fc) / unit / 20;
+max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /40; 
+coarseResolution = c0/(f0 + fc) / unit / 20;
    ```
 The value for larger dimensions of RISs could be:
  ```
-        max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /20; 
-        coarseResolution = c0/(f0 + fc) / unit / 10;
+ max_res = c0 / (f0 + fc) / sqrt(substrate_srr.epsR) / unit /20; 
+ coarseResolution = c0/(f0 + fc) / unit / 10;
    ```
 ### Strategy 2
 The "tooclose" function intervenes to avoid a long-time simulation in the case that the distance between adjacent meshing lines becomes less than a pre-defined
