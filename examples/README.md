@@ -23,7 +23,9 @@ The user is able to select any substrate types. The most widespread types of the
 |----------|:-------------:|:-------------:
 | Rogers RO4350B | 3.66  |   0.0037 |
 | Rogers RTDuroid 5880 | 2.2 | 0.0009 |
+| RO4003 | 3.38 | 0.0027 |
 | FR-4 | 4.3 | 0.025 |
+| FR-4 Glass Epoxy| 4.7 | 0.0197 |
 | Lossy Polymer | 2.9  | 0.00069 |
 
 </div>
