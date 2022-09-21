@@ -230,21 +230,21 @@ if ~isempty(tooclose)
     mesh.z(tooclose + 1) = [];
 end
    ```
-The second strategy is the increase of the function's threshold in order it to intervene more often. The code could be configured as:
+The second strategy is the decrease of the function's threshold in order it to intervene more often. The code could be configured as:
  ```
-tooclose = find (diff(mesh.y) < max_res);
+tooclose = find (diff(mesh.y) < max_res/4);
 if ~isempty(tooclose)
     mesh.y(tooclose) = (mesh.y(tooclose) + mesh.y(tooclose+1))/2;
     mesh.y(tooclose + 1) = [];
 end
 
-tooclose = find (diff(mesh.x) < max_res);
+tooclose = find (diff(mesh.x) < max_res/4);
 if ~isempty(tooclose)
     mesh.x(tooclose) = (mesh.x(tooclose) + mesh.x(tooclose+1))/2;
     mesh.x(tooclose + 1) = [];
 end
 
-tooclose = find (diff(mesh.z) < max_res);
+tooclose = find (diff(mesh.z) < max_res/4);
 if ~isempty(tooclose)
     mesh.z(tooclose) = (mesh.z(tooclose) + mesh.z(tooclose+1))/2;
     mesh.z(tooclose + 1) = [];
